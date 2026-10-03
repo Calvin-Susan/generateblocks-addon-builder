@@ -33,6 +33,50 @@ generateblocks-addon-builder/
     └── review-checklist.md      # before you commit or release
 ```
 
+## What you need
+
+### Must have
+
+1. **Claude Code**, in the Claude desktop app's Code tab, the terminal, or
+   VS Code. It needs a paid Claude plan (Pro or Max). On claude.ai, the
+   skill can only write the code; Claude Code is what builds it, runs the
+   test site and runs the browser tests.
+2. **Node.js 20 or newer**: the "LTS" download from
+   [nodejs.org](https://nodejs.org). This one installer covers building the
+   blocks, the local WordPress test site and the browser tests.
+
+That's it to start. You **don't** need PHP, MySQL, Local, MAMP or Docker:
+[WordPress Playground](https://wordpress.org/playground/) runs WordPress
+inside Node, and installs free GenerateBlocks and GeneratePress by itself.
+You don't install the build or test tools (`@wordpress/scripts`,
+Playground, Playwright) yourself either. Claude adds them to the project.
+
+### Nice to have
+
+- **Google Chrome.** The tests can use it. Without it, Playwright downloads
+  its own browser (about 150 MB, once).
+- **Git and a GitHub account**, for version history and automatic checks on
+  every push (coding standards, Plugin Check, tests). Claude Code can walk
+  you through setting these up.
+- **A real WordPress site with GenerateBlocks**, ideally staging. Build and
+  test in Playground, but try the plugin zip on a real site before using it
+  anywhere important.
+- **GenerateBlocks Pro.** Without it everything works, but the starting
+  layouts are unstyled (their styles are Pro Global Styles). Pro can only be
+  tested on a real site, not in Playground, because it isn't on
+  wordpress.org.
+
+### Your first build
+
+1. Install Node.js.
+2. Install the skill (below).
+3. Make an empty folder, open it in Claude Code, and ask: *"Build me a
+   GenerateBlocks tabs block."*
+
+Claude asks you about security, accessibility and performance, sets up the
+project, builds the block, starts a local test site at
+`http://127.0.0.1:9400` and runs the tests.
+
 ## Install
 
 First, download **`generateblocks-addon-builder.zip`** from the
@@ -89,12 +133,9 @@ Before writing code, Claude will ask you to agree:
 
 Then it builds one feature at a time: block, layouts, tests, review, docs.
 
-## Requirements and caveats
+## Caveats
 
-- GenerateBlocks 2.x (free works; layouts use GB Pro Global Styles if you
-  have it). WordPress 6.6+, PHP 7.4+.
-- Node 20+ for building and for WordPress Playground (local test site, no
-  PHP or MySQL needed).
+- Built plugins target GenerateBlocks 2.x, WordPress 6.6+ and PHP 7.4+.
 - Some GenerateBlocks Pro internals the skill uses (how Global Styles are
   stored, a few editor globals) aren't official public API. The skill marks
   them and tells Claude to check them against your installed version.
